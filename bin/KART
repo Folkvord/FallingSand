@@ -1,0 +1,24 @@
+WORLD:
+
+
+BOARD:
+Objektet som viser world i root
+
+
+TOOLMANAGER:
+Er objektet som alle andre objekter interakter med når verktøyet skal brukes.
+Brukes i:
+    - Alle submenyer
+    - Interactionthread
+    - Board
+    - Keyhandler
+
+
+NÅR MAN LEGGER TIL ELEMENTER:
+    - Legg til i tool.spawnCorrectParticleType()    -> Lar oss male partikkelen inn
+    - Legg til i elementmenyen                      -> Lar oss velge partikkelen
+
+
+VÆRKTØY:
+
+Linetool: Unikt i at det fungerer med alle typer børster og værktøy. Finnes i board.
