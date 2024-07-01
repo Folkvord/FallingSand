@@ -25,7 +25,6 @@ public class World {
         PARTICLEX = 1000/PARTICLEDIMENSION;
         PARTICLEY = 750/PARTICLEDIMENSION;
 
-        //shuffeledIndexes = fillWithIndexes(new int[PARTICLEX]);
         shuffeledIndexes = shuffleIndexes(new int[PARTICLEX]);
 
         grid = new Element[PARTICLEY][PARTICLEX];
@@ -166,18 +165,6 @@ public class World {
     }
 
     // -----------------------------------| Interne |----------------------------------- //
-
-    private int[] fillWithIndexes(int[] indexes){
-
-        for(int i = 0; i < indexes.length; i++){
-
-            indexes[i] = i;
-
-        }
-
-        return indexes;
-
-    }
 
     private int[] shuffleIndexes(int[] indexes){
         Random rand = new Random();
