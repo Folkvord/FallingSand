@@ -36,4 +36,25 @@ public class Vector {
         this.y = vector.y;
     }
 
+    // Returnerer lengden til en vektor
+    public double lenght(){
+
+        return Math.sqrt(x*x + y*y);
+
+    }
+
+    public Vector normalize(){
+        
+        double len = lenght();
+        if(len == 0){
+            return this;
+        }
+        
+        this.x = x / len;
+        this.y = y / len;
+
+        return this; 
+
+    }
+
 }
