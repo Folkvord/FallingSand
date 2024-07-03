@@ -9,12 +9,13 @@ public abstract class Element {
     // Fysikkonstanter
     protected static Vector g = new Vector(0, 0.4);
 
+    // Farge
     public Color colour;
 
-    // Fysikk
+    // Fysikkvariabler
     protected Vector velocityVector = new Vector(0, 0);
-
     protected boolean falling = true;
+    protected int displacementFromVector = 0;   // Sier i hvilken rettning fra vektoren partikkelen har dirvergert
 
 
     // Skaper og traverserer vektoren til partikkelen
@@ -59,7 +60,7 @@ public abstract class Element {
                 yIncrease = i;
             }
 
-            lastValidX = x;
+            lastValidX = x + displacementFromVector;
             lastValidY = y;
 
             x = x0 + (xIncrease * xMod);
@@ -71,12 +72,16 @@ public abstract class Element {
                 
                 if(stopped){
                     falling = false;
+                    velocityVector.set(0, 0);
+
                     break;
                 }
 
             }
 
         }
+
+        displacementFromVector = 0;
 
     }
 

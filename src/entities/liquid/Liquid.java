@@ -1,7 +1,5 @@
 package entities.liquid;
 
-import java.util.Random;
-
 import entities.Element;
 import entities.World;
 

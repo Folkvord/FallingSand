@@ -1,9 +1,9 @@
 package entities.solid.movable;
 
-import entities.Element;
 import entities.World;
-import entities.liquid.Liquid;
+import entities.Element;
 import entities.solid.Solid;
+import entities.liquid.Liquid;
 
 public abstract class Movablesolid extends Solid {
     
@@ -12,7 +12,10 @@ public abstract class Movablesolid extends Solid {
 
         // Hvis plassen under er tom        
         if(target == null){
+
+            falling = true;
             fall(x0, y0, x1, y1, world);
+
             return false;
             
         }
@@ -27,11 +30,17 @@ public abstract class Movablesolid extends Solid {
         // hvis plassen under er en solid partikkel
         else if(target instanceof Solid){
 
+            if(falling){
+                falling = false;
+            }
+
             if(!world.pointIsOccupied(x1-1, y1)){
                 world.moveFromTo(x0, y0, x1-1, y1);
+                displacementFromVector = -1;
             }
             else if(!world.pointIsOccupied(x1+1, y1)){
                 world.moveFromTo(x0, y0, x1+1, y1);
+                displacementFromVector = 1;
             }
 
             return false;
@@ -59,5 +68,6 @@ public abstract class Movablesolid extends Solid {
         }
 
     }
+
 
 }

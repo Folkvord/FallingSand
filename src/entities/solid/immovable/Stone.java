@@ -17,6 +17,8 @@ public class Stone extends Immovablesolid {
         double lightest = 0.8;
         double chance = new Random().nextDouble(2);
 
+        return Color.decode("#636363");
+/*
         if(chance < darkest){
             return Color.decode("#808080");
         }
@@ -28,7 +30,7 @@ public class Stone extends Immovablesolid {
         }
 
         return null;
-
+*/
     }
 
 }
