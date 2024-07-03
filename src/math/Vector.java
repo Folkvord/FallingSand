@@ -38,11 +38,10 @@ public class Vector {
 
     // Returnerer lengden til en vektor
     public double lenght(){
-
         return Math.sqrt(x*x + y*y);
-
     }
 
+    // Normaliserer vektoren
     public Vector normalize(){
         
         double len = lenght();

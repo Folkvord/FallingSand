@@ -8,16 +8,13 @@ import entities.solid.Solid;
 public abstract class Movablesolid extends Solid {
     
     public boolean action(int x0, int y0, int x1, int y1, World world){
-        
         Element target = world.get(x1, y1);
 
         // Hvis plassen under er tom        
         if(target == null){
-            
-            //fall(x, y, world);
-            world.switchParticles(x0, y0, x1, y1);
+            fall(x0, y0, x1, y1, world);
             return false;
-
+            
         }
 
         // Hvis plassen under er en væskepartikkel
@@ -29,12 +26,6 @@ public abstract class Movablesolid extends Solid {
 
         // hvis plassen under er en solid partikkel
         else if(target instanceof Solid){
-
-            if(framesInAir > 0){
-
-                xVelocity = 4;
-
-            }
 
             if(!world.pointIsOccupied(x1-1, y1)){
                 world.moveFromTo(x0, y0, x1-1, y1);

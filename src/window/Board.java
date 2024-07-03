@@ -40,7 +40,6 @@ public class Board extends JPanel {
 
     // Menyen
     public Supermenu menu;
-    private String activeTool = "brush";
 
     // Informasjon om sesjonen
     private int framerate = 0;
@@ -164,32 +163,6 @@ public class Board extends JPanel {
     }
     // ------------------------------------<| Verktøy |>-------------------------------------------- //
 
-    public void chooseCorrectTool(){
-
-        switch(activeTool) {
-            case "brush":
-                brush.paintVector(getLastMouseX(), getLastMouseY(), getCurrentMouseX(), getCurrentMouseY());
-                break;
-        
-            case "rectangle":
-
-                break;
-
-            default:
-                break;
-        }
-
-    }
-
-    public String getActiveToolID(){
-        return activeTool;
-    }
-
-    public void changeActiveToolID(String tool){
-        activeTool = tool;
-    }
-
-
     public void setLineToolState(){
 
         lineToolActive = !lineToolActive;
@@ -296,7 +269,8 @@ public class Board extends JPanel {
 
         int shortestSideIncrease;
         int xIncrease, yIncrease;
-        int x, y;
+        int x = x0, y = y0;
+        int lastX, lastY;
         for(int i = 1; i <= longestSide; i++){
 
             shortestSideIncrease = Math.round(i * a);
@@ -310,15 +284,20 @@ public class Board extends JPanel {
                 yIncrease = i;
             }
 
+            lastX = x;
+            lastY = y;
             x = x0 + (xIncrease * xMod);
             y = y0 + (yIncrease * yMod);
 
             if(world.pointIsOccupied(x, y)){
+                g.setColor(Color.red);
+                g.fillRect(lastX*ps, lastY*ps, ps, ps);
                 return;
             }
 
-            if(world.isWithinBounds(x, y)){
-                g.drawRect(x*ps, y*ps, ps, ps);
+            else{
+                g.setColor(Color.white);
+                g.fillRect(x*ps, y*ps, ps, ps);
             }
 
 

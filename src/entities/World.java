@@ -19,7 +19,7 @@ public class World {
 
     public World(){
 
-        PARTICLEDIMENSION = 8;
+        PARTICLEDIMENSION = 4;
         
         PARTICLEX = 1000/PARTICLEDIMENSION;
         PARTICLEY = 750/PARTICLEDIMENSION;
@@ -38,16 +38,13 @@ public class World {
 
         for(int y = PARTICLEY - 1; y >= 0; y--){
             for(int x : shuffeledIndexes){
+                Element particle = get(x, y);
 
-                if(get(x, y) == null){
+                if(particle == null){
                     continue;
                 }
 
-                try{
-                    grid[y][x].handleParticle(x, y, this); // <-- PERFEKT fysikk
-                } catch(ArrayIndexOutOfBoundsException e){
-                    // INGENTING LOL
-                }
+                particle.handleParticle(x, y, this); // <-- PERFEKT fysikk
 
             }
         }
@@ -57,17 +54,17 @@ public class World {
 
     public void moveFromTo(int x0, int y0, int x1, int y1){
 
-        grid[y1][x1] = grid[y0][x0];
-        grid[y0][x0] = null;
+        set(x1, y1, get(x0, y0));
+        set(x0, y0, null);
 
     }
 
     public void switchParticles(int x0, int y0, int x1, int y1){
 
-        Element temp = grid[y0][x0]; 
+        Element temp = get(x0, y0); 
 
-        grid[y0][x0] = grid[y1][x1];
-        grid[y1][x1] = temp;
+        set(x0, y0, get(x1, y1));
+        set(x1, y1, temp);
 
     }
 
@@ -165,8 +162,9 @@ public class World {
 
     // -----------------------------------| Interne |----------------------------------- //
 
+    // Brukes for å stokke om rekkefølgen x-koordinatene sjekkes (Fikser skredbugget)
     private int[] shuffleIndexes(int[] indexes){
-        Random rand = new Random();
+        Random rand = new Random(9);
         int nextIndex;
 
         for(int i = 0; i < indexes.length; i++){
