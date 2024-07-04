@@ -122,7 +122,7 @@ public abstract class Element {
         boolean p1Collides = v11 > v21;
 
         double v12 = p1Collides ? v11*mDiff : v11 + v11*mDiff;
-        double v22 = p1Collides ? v21*mDiff : v21 + v21*mDiff;
+        double v22 = p1Collides ? v21 + v21*mDiff : v21*mDiff;
 
         particle1.velocityVector.setComponentY(v22);
         particle2.velocityVector.setComponentY(v12);
