@@ -6,6 +6,10 @@ import entities.solid.Solid;
 
 public abstract class Immovablesolid extends Solid{
     
+    public Immovablesolid(){
+        mass = 0;
+    }
+
     public void determineParticleAction(int x, int y, Element[][] grid){
 
         // Gjør ingenting

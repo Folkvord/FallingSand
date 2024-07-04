@@ -19,7 +19,7 @@ public class World {
 
     public World(){
 
-        PARTICLEDIMENSION = 4;
+        PARTICLEDIMENSION = 8;
         
         PARTICLEX = 1000/PARTICLEDIMENSION;
         PARTICLEY = 750/PARTICLEDIMENSION;

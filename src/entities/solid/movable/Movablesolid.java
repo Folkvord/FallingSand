@@ -30,19 +30,21 @@ public abstract class Movablesolid extends Solid {
         // hvis plassen under er en solid partikkel
         else if(target instanceof Solid){
 
-            if(falling){
-                falling = false;
+            if(target.falling){
+                midAirCollision(x0, y0, x1, y1, world);
             }
 
             if(!world.pointIsOccupied(x1-1, y1)){
                 world.moveFromTo(x0, y0, x1-1, y1);
-                displacementFromVector = -1;
+                displacementFromVector--;
             }
             else if(!world.pointIsOccupied(x1+1, y1)){
                 world.moveFromTo(x0, y0, x1+1, y1);
-                displacementFromVector = 1;
+                displacementFromVector++;
             }
-
+            else{
+                return true;
+            }
             return false;
 
         }

@@ -36,6 +36,16 @@ public class Vector {
         this.y = vector.y;
     }
 
+    // Setter bare X-komponenten
+    public void setComponentX(double x){
+        set(x, this.y);
+    }
+    
+    // Setter bare Y-komponenten
+    public void setComponentY(double y){
+        set(this.x, y);
+    }
+
     // Returnerer lengden til en vektor
     public double lenght(){
         return Math.sqrt(x*x + y*y);

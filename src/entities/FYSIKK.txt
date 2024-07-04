@@ -1,0 +1,22 @@
+midAirCollision(int x0, int y0, int x1, int y1, World world) : (Kollisjon i lufta):
+
+Bruker "bevaring" av bevegelsesmengde. For å ungå å bruke for mye ressurser,
+estimerer koden hastighetene ved å bruke differansen til massene -> Math.abs(m1 - m2);
+
+Når partikkel-1 har en høyere hastighet enn partikkel-2, betyr det at p-1 kolliderer med p-2,
+som betyr at p-1 skal dytte p-2. Den som dytter kommer alltid til å miste hastighet, mens den andre får.
+
+Algoritmen:
+Finn ut absoluttverdien av differansen av massene
+Finn ut hvilken partikkel som kolliderer med den andre
+Regn ut V for den som kolliderer:   v * diff
+Regn ut V for den som kollideres i: v + (v * diff)
+
+Eksempel:
+m1 = 1,  v11 = 5
+m2 = 1,6 v21 = 1
+
+m-diff = 0,6
+Siden m1 < m2   ->   m2 får v21 + v21*m-diff  m1 får v11*m-diff
+v22 = 1 + 1 * 0,6   =   1,6
+v12 = 5 * 0,6       =   3,0

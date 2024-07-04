@@ -13,9 +13,13 @@ public abstract class Element {
     public Color colour;
 
     // Fysikkvariabler
-    protected Vector velocityVector = new Vector(0, 0);
-    protected boolean falling = true;
-    protected int displacementFromVector = 0;   // Sier i hvilken rettning fra vektoren partikkelen har dirvergert
+    protected Vector    velocityVector = new Vector(0, 0);
+    public boolean   falling = true;
+    protected double    mass;
+
+    // Sier i hvilken rettning fra vektoren partikkelen har dirvergert
+    protected int displacementFromVector = 0;
+
 
 
     // Skaper og traverserer vektoren til partikkelen
@@ -26,6 +30,7 @@ public abstract class Element {
             velocityVector.add(g);
         }
 
+        // ----- | Skaper vektoren | ----- //
         int x1 = (int) (x0 + velocityVector.x);
         int y1 = (int) (y0 + velocityVector.y);
 
@@ -41,6 +46,7 @@ public abstract class Element {
 
         float a = (longestSide == 0 || shortestSide == 0) ? 0 : ((float) (shortestSide)/(longestSide));
 
+        // ----- | Itererer gjennom hvert punkt på vektoren | ----- //
         int shortestSideIncrease;
         int xIncrease, yIncrease;
         int lastValidX;
@@ -71,9 +77,6 @@ public abstract class Element {
                 stopped = action(lastValidX, lastValidY, x, y, world);
                 
                 if(stopped){
-                    falling = false;
-                    velocityVector.set(0, 0);
-
                     break;
                 }
 
@@ -91,8 +94,6 @@ public abstract class Element {
     public abstract boolean action(int particleX, int particleY, int neighborX, int neighborY, World world);
 
 
-    // ---------------------------------------------------------------------------------------------------------------- //
-    
     // Ser etter den nærmeste ledige plassen partikkelen kan falle til
     // Brukes når vi bare har 1D forflyttning
     protected void fall(int x0, int y0, int x1, int y1, World world){
@@ -101,9 +102,31 @@ public abstract class Element {
 
     }
 
+    protected void midAirCollision(int x0, int y0, int x1, int y1, World world){
 
-  
+        Element particle1 = world.get(x0, y0);
+        Element particle2 = world.get(x1, y1);
 
-    // ---------------------------------------------------------------------------------------------------------------- //
+        double m1 = particle1.mass;
+        double m2 = particle2.mass;
+        double v11 = particle1.velocityVector.y;
+        double v21 = particle2.velocityVector.y;
+
+        if(m1 == m2){
+            particle1.velocityVector.setComponentY(v21);
+            particle2.velocityVector.setComponentY(v11);
+            return;
+        }
+
+        double mDiff = Math.abs(m1 - m2);
+        boolean p1Collides = v11 > v21;
+
+        double v12 = p1Collides ? v11*mDiff : v11 + v11*mDiff;
+        double v22 = p1Collides ? v21*mDiff : v21 + v21*mDiff;
+
+        particle1.velocityVector.setComponentY(v22);
+        particle2.velocityVector.setComponentY(v12);
+
+    }
 
 }
