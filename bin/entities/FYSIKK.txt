@@ -1,4 +1,10 @@
-midAirCollision(int x0, int y0, int x1, int y1, World world) : (Kollisjon i lufta):
+handleParticle(int x0, int y0, World world) : Flytter partikkelen gjennom vektoren sin:
+
+
+
+
+
+midAirCollision(int x0, int y0, int x1, int y1, World world) : Kollisjon i lufta:
 
 Bruker "bevaring" av bevegelsesmengde. For å ungå å bruke for mye ressurser,
 estimerer koden hastighetene ved å bruke differansen til massene -> Math.abs(m1 - m2);

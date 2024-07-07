@@ -7,18 +7,15 @@ import math.Vector;
 public abstract class Element {
 
     // Fysikkonstanter
-    protected static Vector g = new Vector(0, 0.4);
+    protected static Vector g = new Vector(0, 0.4f);
 
     // Farge
     public Color colour;
 
     // Fysikkvariabler
     protected Vector    velocityVector = new Vector(0, 0);
-    public boolean   falling = true;
-    protected double    mass;
-
-    // Sier i hvilken rettning fra vektoren partikkelen har dirvergert
-    protected int displacementFromVector = 0;
+    protected boolean   falling = true;
+    protected float     mass;
 
 
 
@@ -27,8 +24,13 @@ public abstract class Element {
     public void handleParticle(int x0, int y0, World world){
 
         if(falling){
-            velocityVector.add(g);
+            velocityVector.add(g);      // Tyngdekraft
+            velocityVector.x *= 0.9;    // Luftmotstand
         }
+        else{
+            if(world.isWithinBounds(x0, y0+1)) action(x0, y0, x0, y0+1, world);
+        }
+
 
         // ----- | Skaper vektoren | ----- //
         int x1 = (int) (x0 + velocityVector.x);
@@ -66,7 +68,7 @@ public abstract class Element {
                 yIncrease = i;
             }
 
-            lastValidX = x + displacementFromVector;
+            lastValidX = x;
             lastValidY = y;
 
             x = x0 + (xIncrease * xMod);
@@ -75,16 +77,15 @@ public abstract class Element {
             if(world.isWithinBounds(x, y)){
 
                 stopped = action(lastValidX, lastValidY, x, y, world);
-                
+
                 if(stopped){
+                    falling = false;
                     break;
                 }
 
             }
 
         }
-
-        displacementFromVector = 0;
 
     }
 
@@ -107,25 +108,25 @@ public abstract class Element {
         Element particle1 = world.get(x0, y0);
         Element particle2 = world.get(x1, y1);
 
-        double m1 = particle1.mass;
-        double m2 = particle2.mass;
-        double v11 = particle1.velocityVector.y;
-        double v21 = particle2.velocityVector.y;
+        float m1 = particle1.mass;
+        float m2 = particle2.mass;
+        float v11 = particle1.velocityVector.y;
+        float v21 = particle2.velocityVector.y;
 
         if(m1 == m2){
-            particle1.velocityVector.setComponentY(v21);
-            particle2.velocityVector.setComponentY(v11);
+            particle1.velocityVector.y = v21;
+            particle2.velocityVector.y = v11;
             return;
         }
 
-        double mDiff = Math.abs(m1 - m2);
+        float mDiff = Math.abs(m1 - m2);
         boolean p1Collides = v11 > v21;
 
-        double v12 = p1Collides ? v11*mDiff : v11 + v11*mDiff;
-        double v22 = p1Collides ? v21 + v21*mDiff : v21*mDiff;
+        float v12 = p1Collides ? v11*mDiff : v11 + v11*mDiff;
+        float v22 = p1Collides ? v21 + v21*mDiff : v21*mDiff;
 
-        particle1.velocityVector.setComponentY(v22);
-        particle2.velocityVector.setComponentY(v12);
+        particle1.velocityVector.y = v22;
+        particle2.velocityVector.y = v12;
 
     }
 

@@ -267,6 +267,9 @@ public class Board extends JPanel {
 
         float a = (longestSide == 0 || shortestSide == 0) ? 0 : ((float) (shortestSide)/(longestSide));
 
+        g.setColor(Color.red);
+        g.fillRect(x0*ps, y0*ps, ps, ps);
+
         int shortestSideIncrease;
         int xIncrease, yIncrease;
         int x = x0, y = y0;

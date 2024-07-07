@@ -2,18 +2,18 @@ package math;
 
 public class Vector {
     
-    public double x;
-    public double y;
+    public float x;
+    public float y;
 
 
-    public Vector(double x, double y){
+    public Vector(float x, float y){
         this.x = x;
         this.y = y;
     }
 
 
     // Adderer komponentene med parameterverdiene
-    public void add(double x, double y){
+    public void add(float x, float y){
         this.x = this.x + x;
         this.y = this.y + y;
     }
@@ -25,7 +25,7 @@ public class Vector {
     }
 
     // Setter komponentene
-    public void set(double x, double y){
+    public void set(float x, float y){
         this.x = x;
         this.y = y;
     }
@@ -36,32 +36,20 @@ public class Vector {
         this.y = vector.y;
     }
 
-    // Setter bare X-komponenten
-    public void setComponentX(double x){
-        set(x, this.y);
-    }
-    
-    // Setter bare Y-komponenten
-    public void setComponentY(double y){
-        set(this.x, y);
-    }
-
     // Returnerer lengden til en vektor
-    public double lenght(){
-        return Math.sqrt(x*x + y*y);
+    public float lenght(){
+        return (float) Math.sqrt(x*x + y*y);
     }
 
     // Normaliserer vektoren
     public Vector normalize(){
+        float len = lenght();
         
-        double len = lenght();
-        if(len == 0){
-            return this;
+        if(len != 0){
+            this.x /= len;
+            this.y /= len;
         }
         
-        this.x = x / len;
-        this.y = y / len;
-
         return this; 
 
     }
