@@ -1,5 +1,40 @@
 handleParticle(int x0, int y0, World world) : Flytter partikkelen gjennom vektoren sin:
 
+Bruker en algoritme for å bestemme hvilke plasser i verdenen vektoren går gjennom.
+På hver plass, gjør partikkelen en handling.
+
+Før vektorstien skapes, endres hastighetsvektoren seg om den faller.
+Eller om den ikke faller, sjekkes plassen under med action(...).
+
+En vektor som dette er bare den korteste linjen mellom to punkter,
+og det kan du beskrive i uttrykket: y = ax,     hvor a er en konstant.
+Hvis man vet hva a er, kan man finne y ved å iterere gjennom x-verdier
+i en for-loop. Men bruken av denne metoden krever at ingen plasser deler
+det samme koordinatet langs den aksen man itererer gjennom; bare en
+plass kan handles per iterasjon. En løsning for dette, er å iterere
+gjennom den lengste aksen.
+
+Algoritmen:
+Endre hastighetsvektoren / sjekk plassen under
+Definer sluttkoordinater
+Definer den største og minste komponenten
+Definer helningskonstanten (y = ax  ->  a = y/x)
+Iterer gjennom den lengste aksen{
+    Regn ut y-en (ax)
+    om x-aksen > y-aksen{
+        x = i
+        y = y-en
+    }
+    ellers{
+        x = y-en
+        y = i
+    }
+
+    Definer koordinatene til plassen
+    Sjekk om plassen er innenfor verdenen
+    Gjør en handling
+
+}
 
 
 
