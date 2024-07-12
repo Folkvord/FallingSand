@@ -21,14 +21,7 @@ public class Rectangletool extends Tool {
         super(board, world);
 
     }
-
-
-    // Setter partikkelID-en
-    public void setParticleID(int particleID){
-
-        this.particleID = particleID;
-
-    }
+    
 
     // Setter startspunktet til rektangelet
     // Skal kjøres en gang

@@ -37,15 +37,15 @@ public abstract class Tool {
         switch(particleID){
 
             case 1:
-                world.set(x, y, new Sand());
+                world.set(x, y, new Sand(x, y));
                 break;
         
             case 2:
-                world.set(x, y, new Water());
+                world.set(x, y, new Water(x, y));
                 break;
         
             case 3:
-                world.set(x, y, new Stone());
+                world.set(x, y, new Stone(x, y));
                 break;
         
             default:
