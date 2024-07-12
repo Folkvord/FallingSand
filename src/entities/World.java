@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 
@@ -101,13 +102,24 @@ public class World {
     }
 
     public void drawParticles(Graphics g){
+        Element particle;
 
         for(int y = 0; y < PARTICLEY; y++){
             for(int x = 0; x < PARTICLEX; x++){
+                particle = get(x, y);
 
-                if(get(x, y) != null){
+                if(particle != null){
 
-                    g.setColor(get(x, y).colour);
+                    //g.setColor(particle.colour);
+                    
+                    // FALLER: BLÅ  -  STILLE: RØD
+                    if(particle.isFalling()){
+                        g.setColor(Color.BLUE);
+                    }
+                    else{
+                        g.setColor(Color.RED);
+                    }
+                    
                     g.fillRect(x*PARTICLEDIMENSION, y*PARTICLEDIMENSION, PARTICLEDIMENSION, PARTICLEDIMENSION);
 
                 }
@@ -145,6 +157,20 @@ public class World {
     public boolean pointIsOccupied(int x, int y){
 
         return (isWithinBounds(x, y)) ? (get(x, y) != null) : true;
+
+    }
+
+    // Returnerer true om partikkelen er på den nedre grensen
+    public boolean onLowerBorder(int y){
+
+        return y == PARTICLEY;
+
+    }
+
+    // Returnerer true om partikkelen er på høyre eller venstre grense
+    public boolean onEastOrWestBorder(int x){
+
+        return x == 0 || x == PARTICLEX;
 
     }
 

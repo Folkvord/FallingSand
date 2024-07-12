@@ -81,7 +81,7 @@ public class Keyhandler implements KeyListener {
         }
 
         // G : Pauser oppdateringen av verdenen
-        else if(keyCode == 'G' || keyCode == 'g'){
+        else if(keyCode == ' ' || keyCode == ' '){
 
             world.pauseUnpauseTime();
 

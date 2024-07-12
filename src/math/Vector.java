@@ -12,6 +12,10 @@ public class Vector {
     }
 
 
+    public Vector copy(){
+        return new Vector(this.x, this.y);
+    }
+
     // Adderer komponentene med parameterverdiene
     public void add(float x, float y){
         this.x = this.x + x;
