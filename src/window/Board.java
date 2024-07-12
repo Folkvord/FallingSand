@@ -82,7 +82,7 @@ public class Board extends JPanel {
 
     public void updateMousePosition(){
 
-        Point point =  MouseInfo.getPointerInfo().getLocation();
+        Point point = MouseInfo.getPointerInfo().getLocation();
 
         SwingUtilities.convertPointFromScreen(point, this);
 
@@ -138,29 +138,6 @@ public class Board extends JPanel {
     }
 
 
-    // ------------------------------------<| Børster |>-------------------------------------------- //
-
-    public void changeBrush(int brushID){
-        int radius = brush.getRadius();
-        int particleID = brush.getParticleID();
-
-        switch(brushID){
-
-            case 1:
-                brush = new Squarebrush(this, world, radius, particleID);
-                break;
-        
-            case 2:
-                brush = new Flatbrush(this, world, radius, particleID);
-                break;    
-
-            case 3:
-                brush = new Circlebrush(this, world, radius, particleID);
-                break;
-
-        }
-
-    }
     // ------------------------------------<| Verktøy |>-------------------------------------------- //
 
     public void setLineToolState(){

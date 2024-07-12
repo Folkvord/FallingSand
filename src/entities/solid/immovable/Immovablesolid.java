@@ -6,9 +6,12 @@ import entities.solid.Solid;
 public abstract class Immovablesolid extends Solid{
     
 
-    public Immovablesolid(){
+    public Immovablesolid(int x, int y){
+        super(x, y);
+
         mass = 0;
         inertialFactor = 1.1f;
+        
     }
 
     

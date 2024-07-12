@@ -6,8 +6,9 @@ import java.util.Random;
 public class Sand extends Movablesolid {
 
 
-    public Sand(){
-
+    public Sand(int x, int y){
+        super(x, y);
+        
         frictionFactor = 0.2f;
         inertialFactor = 0.1f;
         mass = 1.6f;

@@ -13,8 +13,8 @@ public abstract class Element {
     public Color colour;
 
     // Koordinater
-    private int x;
-    private int y;
+    protected int x;
+    protected int y;
 
     // Fysikkvariabler
     public    Vector    velocityVector = new Vector(0, 0);
@@ -23,6 +23,13 @@ public abstract class Element {
     protected float     inertialFactor;                             // Sannsynligheten for at en partikkel får denne til å falle igjen
     protected float     mass;
 
+
+    public Element(int x, int y){
+        
+        this.x = x;
+        this.y = y;
+
+    }
 
 
     // Skaper og traverserer vektoren til partikkelen
@@ -77,8 +84,8 @@ public abstract class Element {
                 yIncrease = i;
             }
 
-            targetX = x0 + (xIncrease * xMod);
-            targetY = y0 + (yIncrease * yMod);
+            targetX = this.x + (xIncrease * xMod);
+            targetY = this.y + (yIncrease * yMod);
 
             if(world.isWithinBounds(targetX, targetY)){
 
@@ -154,6 +161,7 @@ public abstract class Element {
 
     }
 
+// ---------------------| ELEMENTKOORDINATHANDLING |--------------------- //
 
     public int x(){
         return x;
@@ -161,6 +169,34 @@ public abstract class Element {
     
     public int y(){
         return y;
+    }
+
+    public void setCoordinates(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public void swapCoordiantes(Element toSwap, World world){
+
+        if(this == toSwap) return;
+        
+        int toSwapX = toSwap.x;
+        int toSwapY = toSwap.y;
+
+        toSwap.setCoordinates(this.x, this.y);
+        this.setCoordinates(toSwapX, toSwapY);
+
+        world.swapParticles(this.x, this.y, toSwap.x, toSwap.y);
+
+    }
+
+    public void moveElementTo(int x, int y, World world){
+
+        if(this.x == x && this.y == y) return;
+
+        world.moveFromTo(this.x, this.y, x, y);
+        setCoordinates(x, y);
+
     }
 
     public boolean isFalling(){

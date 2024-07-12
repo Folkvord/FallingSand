@@ -60,7 +60,7 @@ public class World {
 
     }
 
-    public void switchParticles(int x0, int y0, int x1, int y1){
+    public void swapParticles(int x0, int y0, int x1, int y1){
 
         Element temp = get(x0, y0); 
 
