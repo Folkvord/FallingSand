@@ -249,8 +249,8 @@ public class Board extends JPanel {
 
         int shortestSideIncrease;
         int xIncrease, yIncrease;
-        int x = x0, y = y0;
-        int lastX, lastY;
+        int x, y;
+        int lastX = x0, lastY = y0;
         for(int i = 1; i <= longestSide; i++){
 
             shortestSideIncrease = Math.round(i * a);
@@ -264,11 +264,12 @@ public class Board extends JPanel {
                 yIncrease = i;
             }
 
-            lastX = x;
-            lastY = y;
+            
             x = x0 + (xIncrease * xMod);
             y = y0 + (yIncrease * yMod);
 
+            if(i == 5){x0++; y0++;}
+            
             if(world.pointIsOccupied(x, y)){
                 g.setColor(Color.red);
                 g.fillRect(lastX*ps, lastY*ps, ps, ps);
@@ -280,6 +281,8 @@ public class Board extends JPanel {
                 g.fillRect(x*ps, y*ps, ps, ps);
             }
 
+            lastX = x0 + (xIncrease * xMod);
+            lastY = y0 + (yIncrease * yMod);
 
         }
 
@@ -352,7 +355,6 @@ public class Board extends JPanel {
                 break;
         }
 
-
         g.setFont(new Font(null, Font.PLAIN, 20));
         g.setColor(Color.white);
 
@@ -370,7 +372,6 @@ public class Board extends JPanel {
         }
 
     }
-
 
     public void paintComponent(Graphics g){
 

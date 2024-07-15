@@ -9,18 +9,18 @@ public abstract class Element {
     // Fysikkonstanter
     protected static Vector g = new Vector(0, 0.15f);
 
-    // Farge
     public Color colour;
+    public boolean moved = false;
 
     // Koordinater
-    protected int x;
-    protected int y;
+    protected int x;    // Disse koordinatene endrer seg BARE i siste action
+    protected int y;    // De brukes som en kommunikasjonslinje mellom action() og handleParticle() (retter opp om elementet dirvergerer fra vektoren)
 
     // Fysikkvariabler
     public    Vector    velocityVector = new Vector(0, 0);
+    public    float     frictionFactor;                             // Friksjonsfaktoren (ganges med en annen frik.faktor og med x-hastigheten)
+    public    float     inertialFactor;                             // Sannsynligheten for at en partikkel får denne til å falle igjen
     protected boolean   falling = true;                             // Om partikkelen faller
-    protected float     frictionFactor;                             // Friksjonsfaktoren (ganges med en annen frik.faktor og med x-hastigheten)
-    protected float     inertialFactor;                             // Sannsynligheten for at en partikkel får denne til å falle igjen
     protected float     mass;
 
 
@@ -40,11 +40,9 @@ public abstract class Element {
             velocityVector.add(g);      // Tyngdekraft
             velocityVector.x *= 0.9;    // Luftmotstand
         }
-        else{
-            if(!world.pointIsOccupied(x0, y0+1)){
-                action(x0, y0, x0, y0+1, x0, y0, true, false, world);
-                return; 
-            }
+        else if(!world.pointIsOccupied(x0, y0 + 1)){
+            falling = true;
+            return; 
         }
 
 
@@ -89,18 +87,20 @@ public abstract class Element {
 
             if(world.isWithinBounds(targetX, targetY)){
 
-                stopped = action(lastValidX, lastValidY, targetX, targetY, x0, y0, i == 1, i == longestSide, world);
+                stopped = action(lastValidX, lastValidY, targetX, targetY, i == 1, i == longestSide, world);
 
                 if(stopped){
                     break;
                 }
-
+                
                 lastValidX = targetX;
                 lastValidY = targetY;
 
             }
             else{
                 falling = false;
+                moveElementTo(lastValidX, lastValidY, world);
+                velocityVector.y = 0;
             }
 
         }
@@ -111,7 +111,7 @@ public abstract class Element {
     // lastValidX og -Y er koordinatene der partikkelen sist var
     // targetX og -Y er koordinatene til plassen der partikkelen har lyst å gå
     // Origin er punktet der partikkelen starta
-    public abstract boolean action(int lastValidX, int lastValidY, int targetX, int targetY, int originX, int originY, boolean firstAction, boolean lastAction, World world);
+    public abstract boolean action(int lastValidX, int lastValidY, int targetX, int targetY, boolean firstAction, boolean lastAction, World world);
 
     protected void midAirCollision(int x0, int y0, int x1, int y1, World world){
 
@@ -144,7 +144,7 @@ public abstract class Element {
     // Dette unngår unaturlige tårn 
     protected void setNeighborsToFalling(int x, int y, World world){
         Element particle;
-
+        
         for(int y0 = -1; y0 <= 1; y0++){
             for(int x0 = -1; x0 <= 1; x0++){        
 
@@ -153,7 +153,6 @@ public abstract class Element {
                 || particle.falling) continue;
 
                 particle.falling = (Math.random() > particle.inertialFactor);
-                particle.velocityVector.y = 1;
 
 
             }
@@ -201,6 +200,10 @@ public abstract class Element {
 
     public boolean isFalling(){
         return falling;
+    }
+
+    public String toString(){
+        return "("+x+", "+y+")";
     }
 
 }

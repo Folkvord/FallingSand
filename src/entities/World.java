@@ -41,11 +41,27 @@ public class World {
             for(int x : shuffeledIndexes){
                 Element particle = get(x, y);
 
-                if(particle == null){
-                    continue;
-                }
+                if(particle == null || particle.moved) continue;
 
                 particle.handleParticle(x, y, this); // <-- PERFEKT fysikk
+                particle.moved = true;
+
+            }
+        }
+
+        prepareParticlesForNextTick();
+
+    }
+
+    private void prepareParticlesForNextTick(){
+
+        for(int y = 0; y < PARTICLEY; y++){
+            for(int x = 0; x < PARTICLEX; x++){
+                Element particle = get(x, y);
+                
+                if(particle == null) continue;
+                else particle.moved = false;
+
 
             }
         }
@@ -68,10 +84,6 @@ public class World {
         set(x1, y1, temp);
 
     }
-
-
-
-    // --------------------------------------------------------<| Eksterne |>-------------------------------------------------------- //
 
     public void pauseUnpauseTime(){
         timeStopped = !timeStopped;
@@ -109,16 +121,24 @@ public class World {
                 particle = get(x, y);
 
                 if(particle != null){
+                    
+                    g.setColor(particle.colour);
 
-                    //g.setColor(particle.colour);
+                    // HASTIGHET STØRRE EN 5: GRØNN  -  HASTIGHET UNDER ELLER LIK 5: GRÅ
+                    //if(particle.velocityVector.y > 5){
+                    //    g.setColor(Color.green);
+                    //}
+                    //else{
+                    //    g.setColor(Color.gray);
+                    //}
                     
                     // FALLER: BLÅ  -  STILLE: RØD
-                    if(particle.isFalling()){
-                        g.setColor(Color.BLUE);
-                    }
-                    else{
-                        g.setColor(Color.RED);
-                    }
+                    //if(particle.isFalling()){
+                    //    g.setColor(Color.BLUE);
+                    //}
+                    //else{
+                    //    g.setColor(Color.RED);
+                    //}
                     
                     g.fillRect(x*PARTICLEDIMENSION, y*PARTICLEDIMENSION, PARTICLEDIMENSION, PARTICLEDIMENSION);
 

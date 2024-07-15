@@ -13,6 +13,12 @@ public class Sand extends Movablesolid {
         inertialFactor = 0.1f;
         mass = 1.6f;
 
+        // Debug
+        //if(Math.random() > .75) colour = Color.decode("#a83294");
+        //else if(Math.random() > .5) colour = Color.decode("#3238a8");
+        //else if(Math.random() > .25) colour = Color.decode("#b30000");
+        //else colour = Color.decode("#ffffff");
+
         colour = (new Random().nextBoolean()) ? Color.decode("#ebc036") : Color.decode("#cca72f");
 
     }

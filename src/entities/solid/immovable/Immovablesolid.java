@@ -11,12 +11,17 @@ public abstract class Immovablesolid extends Solid{
 
         mass = 0;
         inertialFactor = 1.1f;
-        
+        falling = false;
+
     }
 
-    
+    public void handleParticle(int x, int y, World world){
+        
+        // Behandles foreløpig ikke 
 
-    public boolean action(int x0, int y0, int x1, int y1, int originX, int originY, boolean firstAction, boolean lastAction, World world){
+    }
+
+    public boolean action(int x0, int y0, int x1, int y1, boolean firstAction, boolean lastAction, World world){
         return true;
     }
 

@@ -13,7 +13,7 @@ public abstract class Liquid extends Element {
     }
 
     
-    public boolean action(int x0, int y0, int x1, int y1, int originX, int originY, boolean firstAction, boolean lastAction, World world){
+    public boolean action(int x0, int y0, int x1, int y1, boolean firstAction, boolean lastAction, World world){
         
         return true;
         
