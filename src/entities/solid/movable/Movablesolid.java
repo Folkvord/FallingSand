@@ -39,20 +39,25 @@ public abstract class Movablesolid extends Solid {
         // hvis plassen har en solid partikkel
         else if(target instanceof Solid){
             
-            if(lastAction){     // Kan trengs en fiks idk, kan hende det fikser seg selv senere LOL
+            if(lastAction){
                 moveElementTo(x0, y0, world);
                 return true;
             }
 
-            // Konserver energi
-            
-            velocityVector.y = target.velocityVector.y;
-            velocityVector.x *= frictionFactor * target.frictionFactor;
-            
             Vector normalizedVector = velocityVector.copy().normalize();
             int directionX = getDirectionOrRandom(normalizedVector.x);
             int directionY = getDirection(normalizedVector.y);
 
+            if(falling && target.isFalling()){
+                collision(target);
+            }
+            else if(falling){
+
+            }
+
+            velocityVector.y = target.velocityVector.y;
+            velocityVector.x *= frictionFactor * target.frictionFactor;
+            
             if(world.isWithinBounds(x0 + directionX, y0 + directionY)){
                 boolean stopped = action(x0, y0, x0 + directionX, y0 + directionY, firstAction, true, world);
                 if(!stopped){
@@ -62,14 +67,17 @@ public abstract class Movablesolid extends Solid {
                 
             }
 
-            if(world.isWithinBounds(x0 + directionX, y1)){
-                boolean stopped = action(x0, y0, x0 + directionX, y0, firstAction, true, world);
-                if(!stopped){
-                    falling = true;
-                    return true;
-                }
-            }
 
+            //if(world.isWithinBounds(x0 + directionX, y1)){
+            //    boolean stopped = action(x0, y0, x0 + directionX, y0, firstAction, true, world);
+            //    if(!stopped){
+            //        falling = true;
+            //        return true;
+            //    }
+            //    velocityVector.x *= -1;
+            //}
+            
+            velocityVector.y = 0;
             falling = false;
             return true;
         }
@@ -105,6 +113,12 @@ public abstract class Movablesolid extends Solid {
         if(velocity > 0) return 1;
         else if(velocity < 0) return -1;
         else return -1;
+
+    }
+
+    private void collision(Element target){
+
+
 
     }
 
