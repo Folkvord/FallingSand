@@ -42,7 +42,7 @@ public abstract class Element {
         }
         else if(!world.pointIsOccupied(x0, y0 + 1)){
             falling = true;
-            return; 
+            return;
         }
 
 
@@ -113,10 +113,10 @@ public abstract class Element {
     // Origin er punktet der partikkelen starta
     public abstract boolean action(int lastValidX, int lastValidY, int targetX, int targetY, boolean firstAction, boolean lastAction, World world);
 
-    protected void midAirCollision(int x0, int y0, int x1, int y1, World world){
+    protected void midAirCollision(Element collidingElement, World world){
 
-        Element particle1 = world.get(x0, y0);
-        Element particle2 = world.get(x1, y1);
+        Element particle1 = this;
+        Element particle2 = collidingElement;
 
         float m1 = particle1.mass;
         float m2 = particle2.mass;
@@ -153,7 +153,6 @@ public abstract class Element {
                 || particle.falling) continue;
 
                 particle.falling = (Math.random() > particle.inertialFactor);
-
 
             }
         }

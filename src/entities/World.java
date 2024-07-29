@@ -20,7 +20,7 @@ public class World {
 
     public World(){
 
-        PARTICLEDIMENSION = 4;
+        PARTICLEDIMENSION = 8;
         
         PARTICLEX = 1000/PARTICLEDIMENSION;
         PARTICLEY = 750/PARTICLEDIMENSION;
@@ -122,23 +122,17 @@ public class World {
 
                 if(particle != null){
                     
-                    g.setColor(particle.colour);
+                    // Normal
+                    //g.setColor(particle.colour);
 
-                    // HASTIGHET STØRRE EN 5: GRØNN  -  HASTIGHET UNDER ELLER LIK 5: GRÅ
-                    //if(particle.velocityVector.y > 5){
-                    //    g.setColor(Color.green);
-                    //}
-                    //else{
-                    //    g.setColor(Color.gray);
-                    //}
+                    // Y-HASTIGHET STØRRE EN 0: GRØNN  -  HASTIGHET UNDER ELLER LIK 0: GRÅ
+                    //ySpeedColourscheme(particle, g);
+                    
+                    // X-HASTIGHET STØRRE EN 0: GUL  -  HASTIGHET UNDER ELLER LIK 0: GRÅ
+                    //xSpeedColourscheme(particle, g);
                     
                     // FALLER: BLÅ  -  STILLE: RØD
-                    //if(particle.isFalling()){
-                    //    g.setColor(Color.BLUE);
-                    //}
-                    //else{
-                    //    g.setColor(Color.RED);
-                    //}
+                    fallingColourscheme(particle, g);
                     
                     g.fillRect(x*PARTICLEDIMENSION, y*PARTICLEDIMENSION, PARTICLEDIMENSION, PARTICLEDIMENSION);
 
@@ -242,6 +236,33 @@ public class World {
 
         return false;
 
+    }
+
+    protected void fallingColourscheme(Element particle, Graphics g){
+        if(particle.isFalling()){
+            g.setColor(Color.BLUE);
+        }
+        else{
+            g.setColor(Color.RED);
+        }
+    }
+
+    protected void ySpeedColourscheme(Element particle, Graphics g){
+        if(particle.velocityVector.y > 0){
+            g.setColor(Color.green);
+        }
+        else{
+            g.setColor(Color.gray);
+        }
+    }
+
+    protected void xSpeedColourscheme(Element particle, Graphics g){
+        if(particle.velocityVector.x != 0.0){
+            g.setColor(Color.yellow);
+        }
+        else{
+            g.setColor(Color.gray);
+        }
     }
 
 }
