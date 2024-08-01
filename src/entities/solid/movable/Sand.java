@@ -10,7 +10,7 @@ public class Sand extends Movablesolid {
         super(x, y);
         
         frictionFactor = 0.2f;
-        inertialFactor = 0.0f;
+        inertialFactor = 1.0f;
         mass = 1.6f;
 
         // Debug

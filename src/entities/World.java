@@ -14,8 +14,8 @@ public class World {
     private boolean timeStopped = false;    // Om tiden står stille
     private boolean voidFloor = false;      // Sier om partikkler forsvinner når de treffer bunnen av verdnen   (IKKE FERDIG)
 
-    private Element[][] grid;
-    private int[] shuffeledIndexes;
+    private final Element[][] grid;
+    private final int[] shuffeledIndexes;
 
 
     public World(){
@@ -123,7 +123,7 @@ public class World {
                 if(particle != null){
                     
                     // Normal
-                    //g.setColor(particle.colour);
+                    g.setColor(particle.colour);
 
                     // Y-HASTIGHET STØRRE EN 0: GRØNN  -  HASTIGHET UNDER ELLER LIK 0: GRÅ
                     //ySpeedColourscheme(particle, g);
@@ -131,8 +131,11 @@ public class World {
                     // X-HASTIGHET STØRRE EN 0: GUL  -  HASTIGHET UNDER ELLER LIK 0: GRÅ
                     //xSpeedColourscheme(particle, g);
                     
+                    // HAR HASTIGHET: GRØNN - INGEN HASTIGHET: GRÅ
+                    //generalSpeedColourScheme(particle, g);
+
                     // FALLER: BLÅ  -  STILLE: RØD
-                    fallingColourscheme(particle, g);
+                    //fallingColourscheme(particle, g);
                     
                     g.fillRect(x*PARTICLEDIMENSION, y*PARTICLEDIMENSION, PARTICLEDIMENSION, PARTICLEDIMENSION);
 
@@ -249,6 +252,15 @@ public class World {
 
     protected void ySpeedColourscheme(Element particle, Graphics g){
         if(particle.velocityVector.y > 0){
+            g.setColor(Color.green);
+        }
+        else{
+            g.setColor(Color.gray);
+        }
+    }
+
+    protected void generalSpeedColourScheme(Element particle, Graphics g){
+        if(particle.velocityVector.y != 0 || particle.velocityVector.x != 0){
             g.setColor(Color.green);
         }
         else{

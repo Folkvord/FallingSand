@@ -1,7 +1,6 @@
 package entities;
 
 import java.awt.Color;
-
 import math.Vector;
 
 public abstract class Element {
@@ -68,7 +67,6 @@ public abstract class Element {
         int lastValidX = x0;
         int lastValidY = y0;
         int targetX, targetY;
-        boolean stopped = true;
         for(int i = 1; i <= longestSide; i++){
 
             shortestSideIncrease = Math.round(i * a);
@@ -84,10 +82,10 @@ public abstract class Element {
 
             targetX = this.x + (xIncrease * xMod);
             targetY = this.y + (yIncrease * yMod);
-
+        
             if(world.isWithinBounds(targetX, targetY)){
 
-                stopped = action(lastValidX, lastValidY, targetX, targetY, i == 1, i == longestSide, world);
+                boolean stopped = action(lastValidX, lastValidY, targetX, targetY, i == 1, i == longestSide, world);
 
                 if(stopped){
                     break;
@@ -201,6 +199,7 @@ public abstract class Element {
         return falling;
     }
 
+    @Override
     public String toString(){
         return "("+x+", "+y+")";
     }
