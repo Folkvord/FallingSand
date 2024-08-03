@@ -1,11 +1,10 @@
 package window;
 
+import entities.World;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import entities.World;
-import tools.Toolmanager;
 import resourcemenu.Supermenu;
+import tools.Toolmanager;
 
 public class Keyhandler implements KeyListener {
     
@@ -31,7 +30,7 @@ public class Keyhandler implements KeyListener {
         // Q : Endrer børstens partikkeltype
         if(keyCode == 'q' || keyCode == 'Q'){
             
-            toolmanager.brush.incrementParticleID();
+            System.out.println("LOL");
             
         }
         

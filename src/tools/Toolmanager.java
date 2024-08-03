@@ -1,11 +1,9 @@
 package tools;
 
-import window.Board;
-
-import java.awt.Graphics;
-
 import entities.World;
+import java.awt.Graphics;
 import tools.brush.*;
+import window.Board;
 import window.Mousehandler;
 
 /*
@@ -47,7 +45,7 @@ public class Toolmanager {
         
     }
 
-    public void changeParticleID(int particleID){
+    public void changeParticleID(ParticleID particleID){
 
         brush.changeParticleID(particleID);
 
@@ -81,7 +79,7 @@ public class Toolmanager {
     
     public void changeBrush(int brushID){
         int radius = brush.getRadius();
-        int particleID = brush.getParticleID();
+        ParticleID particleID = brush.getParticleID();
 
         switch(brushID){
 

@@ -1,10 +1,10 @@
 package tools.brush;
 
+import entities.World;
 import java.awt.Graphics;
-
+import tools.ParticleID;
 import tools.Tool;
 import window.Board;
-import entities.World;
 
 public abstract class Brush extends Tool {
 
@@ -20,7 +20,7 @@ public abstract class Brush extends Tool {
     }
 
 
-    public Brush(Board board, World world, int radius, int particleID){
+    public Brush(Board board, World world, int radius, ParticleID particleID){
 
         super(board, world);
 
@@ -113,27 +113,6 @@ public abstract class Brush extends Tool {
     }
 
 
-    // PartikkelID
-    public int getParticleID(){
-        return particleID;
-    }
-
-    // Endrer til spesifik ID
-    public void changeParticle(int particleID){
-
-        this.particleID = particleID;
-
-    }
-
-    // Inkrementerer ID-en med en
-    public void incrementParticleID(){
-
-        particleID++;
-
-        if(particleID > 3){
-            particleID = 1;
-        }
-
-    }
+  
 
 }

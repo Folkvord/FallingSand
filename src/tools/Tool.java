@@ -11,7 +11,7 @@ public abstract class Tool {
     public Board board;
     public World world;
 
-    protected int particleID = 1;
+    protected ParticleID particleID = ParticleID.SAND;
 
 
     public Tool(Board board, World world){
@@ -23,7 +23,7 @@ public abstract class Tool {
 
 
     // Spawner en ny partikkel på et punkt
-    public void spawnCorrectParticleType(int x, int y, int particleID){
+    public void spawnCorrectParticleType(int x, int y, ParticleID particleID){
 
         if(setToErase(x, y, particleID)){
             world.set(x, y, null);
@@ -36,15 +36,15 @@ public abstract class Tool {
 
         switch(particleID){
 
-            case 1:
+            case SAND:
                 world.set(x, y, new Sand(x, y));
                 break;
         
-            case 2:
+            case WATER:
                 world.set(x, y, new Water(x, y));
                 break;
         
-            case 3:
+            case STONE:
                 world.set(x, y, new Stone(x, y));
                 break;
         
@@ -57,9 +57,9 @@ public abstract class Tool {
     }
 
     // Sier om man skal hviske ut partikkler
-    private boolean setToErase(int x, int y, int particleID){
+    private boolean setToErase(int x, int y, ParticleID particleID){
 
-        return (world.isWithinBounds(x, y) && particleID == 0);
+        return (world.isWithinBounds(x, y) && particleID == ParticleID.ERASE);
     
     }
 
@@ -70,11 +70,11 @@ public abstract class Tool {
     }
 
 
-    public void changeParticleID(int particleID){
+    public void changeParticleID(ParticleID particleID){
         this.particleID = particleID;
     }
 
-    public int getParticleID(){
+    public ParticleID getParticleID(){
         return particleID;
     }
     

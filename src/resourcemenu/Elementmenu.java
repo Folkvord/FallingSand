@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import tools.ParticleID;
 
 import window.Board;
 
@@ -26,7 +27,7 @@ public class Elementmenu extends Submenu {
         buttons[0].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
 
-                routine(0);
+                routine(ParticleID.ERASE);
 
             }
         });
@@ -35,7 +36,7 @@ public class Elementmenu extends Submenu {
         buttons[1].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
 
-                routine(1);
+                routine(ParticleID.SAND);
 
             }
         });
@@ -44,7 +45,7 @@ public class Elementmenu extends Submenu {
         buttons[2].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
 
-                routine(2);
+                routine(ParticleID.WATER);
 
             }
         });
@@ -53,13 +54,13 @@ public class Elementmenu extends Submenu {
         buttons[3].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
 
-                routine(3);
+                routine(ParticleID.STONE);
             }
         });
 
     }
 
-    private void routine(int particleID){
+    private void routine(ParticleID particleID){
 
         toolmanager.changeParticleID(particleID);
         supermenu.closeAll();

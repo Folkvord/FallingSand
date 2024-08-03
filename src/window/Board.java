@@ -1,18 +1,17 @@
 package window;
 
-import tools.*;
-import tools.brush.*;
 import entities.*;
-import resourcemenu.*;
-
-import java.awt.Font;
-import java.awt.Point;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.MouseInfo;
+import java.awt.Point;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import resourcemenu.*;
+import tools.*;
+import tools.brush.*;
 
 public class Board extends JPanel {
 
@@ -334,20 +333,20 @@ public class Board extends JPanel {
         // Finn ut type
         switch(toolmanager.getBrush().getParticleID()) {
             
-            case 0:
+            case ERASE:
                 type = "ERASER";
                 break;
             
-            case 1:
+            case SAND:
                 type = "SAND";
                 break;
         
-            case 2:
-                type = "CONCRETE";
+            case WATER:
+                type = "WATER";
                 break;
 
-            case 3:
-                type = "CLOUD";
+            case STONE:
+                type = "STONE";
                 break;
 
             default:

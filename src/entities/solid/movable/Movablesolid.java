@@ -19,6 +19,7 @@ public abstract class Movablesolid extends Solid {
 
         // Hvis plassen er tom
         if(target == null){
+            
             if(lastAction){
                 moveElementTo(x1, y1, world);
                 setNeighborsToFalling(x1, y1, world);
