@@ -1,10 +1,10 @@
 package tools;
 
-import window.Board;
 import entities.World;
 import entities.liquid.*;
-import entities.solid.movable.*;
 import entities.solid.immovable.*;
+import entities.solid.movable.*;
+import window.Board;
 
 public abstract class Tool {
     
@@ -40,6 +40,10 @@ public abstract class Tool {
                 world.set(x, y, new Sand(x, y));
                 break;
         
+            case DIRT:
+                world.set(x, y, new Dirt(x, y));
+                break;
+
             case WATER:
                 world.set(x, y, new Water(x, y));
                 break;

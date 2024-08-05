@@ -9,10 +9,12 @@ import tools.Toolmanager;
 public class Keyhandler implements KeyListener {
     
     public Board board;
-    public Toolmanager toolmanager;
-    public Supermenu menu;
     public World world;
+    public Supermenu menu;
+    public Toolmanager toolmanager;
 
+    private boolean changePalletMode = false;
+        
 
     public Keyhandler(Board board, World world){
         
@@ -24,18 +26,39 @@ public class Keyhandler implements KeyListener {
     }
 
 
+    @Override
     public void keyTyped(KeyEvent e){
         char keyCode = e.getKeyChar();
+        int  index = getKeyIntValue(keyCode);
+        
+
+        // -------------------| Pallet |------------------- //
+
+        // Et tall : Endrer partikkeltypen til den i pallettet
+        if(index != -1){
+
+            if(changePalletMode){
+                toolmanager.changeCurrentPallet(index);
+            }
+            else{
+                toolmanager.changeParticleID(index);
+            }
+            
+        }
 
         // Q : Endrer børstens partikkeltype
         if(keyCode == 'q' || keyCode == 'Q'){
             
-            System.out.println("LOL");
-            
+            changePalletMode = !changePalletMode;
+
         }
+            
         
+
+        // -------------------| Annet |------------------- //
+
         // W : Endrer børstens radius
-        else if(keyCode == 'w' || keyCode == 'W'){
+        if(keyCode == 'w' || keyCode == 'W'){
     
             toolmanager.brush.incrementRadiusByFive();
     
@@ -95,7 +118,29 @@ public class Keyhandler implements KeyListener {
 
     }
 
+
+    @Override
     public void keyPressed(KeyEvent e){}
+
+    @Override
     public void keyReleased(KeyEvent e){}
+
     
+    // Returnerer tastet som en int-verdi
+    // Om tastet ikke var et nummer, returneres -1
+    private int getKeyIntValue(char keyCode){
+        
+        try{
+
+            int intValue = Integer.parseInt(keyCode+"");
+            return intValue;
+
+        } catch (Exception e) {
+
+            return -1;
+
+        }
+
+    }
+
 }

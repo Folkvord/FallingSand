@@ -1,0 +1,8 @@
+TOOLMANAGER:
+I metoden: initPallets() -> Legg til elementet i palletet
+
+TOOL:
+I metoden: spawnCorrectParticleType(...) -> Legg til i switch casen 
+
+ELEMENTMENU(valgfritt):
+Lag ny knapp for elementet

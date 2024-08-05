@@ -363,15 +363,18 @@ public class Board extends JPanel {
         g.drawString("PARTICLE AMOUNT: "+world.countParticles(), 0, 25*3);  // Lagger
 
         g.drawString("TICKRATE: "+framerate, 0, 25*4);
+        
+        g.drawString("PALLET: "+toolmanager.getCurrentPallet(), 0, 25*5);
 
         if(world.isPaused()){
 
-            g.drawString("PAUSED", 0, 25*5);
+            g.drawString("PAUSED", 0, 25*6);
 
         }
 
     }
 
+    @Override
     public void paintComponent(Graphics g){
 
         super.paintComponent(g);

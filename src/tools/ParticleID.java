@@ -4,7 +4,7 @@ public enum ParticleID {
     
     ERASE,
     SAND, DIRT,
-    WATER,
     STONE,
+    WATER,
 
 }

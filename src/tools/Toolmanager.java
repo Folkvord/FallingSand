@@ -24,10 +24,17 @@ public class Toolmanager {
 
     private String activeTool = "brush";
 
+    // Pallet
+    public final int palletAmount = 3;
+    private final ParticlePallet[] particlePallets = new ParticlePallet[palletAmount];
+    private ParticlePallet currentPallet;
+
 
     public Toolmanager(World world){
 
         this.world = world;
+
+        initPallets();
 
     }
 
@@ -48,8 +55,16 @@ public class Toolmanager {
     public void changeParticleID(ParticleID particleID){
 
         brush.changeParticleID(particleID);
-
         rectangletool.changeParticleID(particleID);
+
+    }
+
+    public void changeParticleID(int index){
+
+        ParticleID ID = currentPallet.getParticle(index);
+
+        brush.changeParticleID(ID);
+        rectangletool.changeParticleID(ID);
 
     }
 
@@ -168,6 +183,38 @@ public class Toolmanager {
     }
 
 
+    // -----------------------------------<| Pallet |>---------------------------------------- //
     
+    private void initPallets(){
+
+        ParticleID[] sPal = {ParticleID.SAND, ParticleID.DIRT, ParticleID.STONE};
+        ParticleID[] lPal = {ParticleID.WATER};
+        ParticleID[] gPal = {};
+        
+        ParticlePallet solidPallet = new ParticlePallet("SOLID", sPal);
+        ParticlePallet liquidPallet = new ParticlePallet("LIQUID", lPal);
+        ParticlePallet gasPallet = new ParticlePallet("GAS", gPal);
+
+        particlePallets[0] = solidPallet;
+        particlePallets[1] = liquidPallet;
+        particlePallets[2] = gasPallet;
+
+        currentPallet = particlePallets[0];
+    
+    }
+    
+    // Gjør ingenting om ingen gyldig pallet velges 
+    public void changeCurrentPallet(int index){
+        
+        index--;
+        if(index < 0 || index > palletAmount) return;
+        
+        currentPallet = particlePallets[index];
+    
+    }
+
+    public String getCurrentPallet(){
+        return currentPallet.getName();
+    }
 
 }
