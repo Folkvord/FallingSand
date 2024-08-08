@@ -3,15 +3,15 @@ package window;
 import entities.World;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import resourcemenu.Supermenu;
 import tools.Toolmanager;
+import window.text.Captionmanager;
 
 public class Keyhandler implements KeyListener {
     
-    public Board board;
-    public World world;
-    public Supermenu menu;
-    public Toolmanager toolmanager;
+    private Board board;
+    private World world;
+    private Toolmanager toolmanager;
+    private Captionmanager captionmanager;
 
     private boolean changePalletMode = false;
         
@@ -20,7 +20,7 @@ public class Keyhandler implements KeyListener {
         
         this.board = board;
         this.toolmanager = board.toolmanager;
-        this.menu = board.menu;
+        this.captionmanager = board.captionmanager;
         this.world = world;
 
     }
@@ -30,15 +30,14 @@ public class Keyhandler implements KeyListener {
     public void keyTyped(KeyEvent e){
         char keyCode = e.getKeyChar();
         int  index = getKeyIntValue(keyCode);
-        
 
-        // -------------------| Pallet |------------------- //
 
         // Et tall : Endrer partikkeltypen til den i pallettet
         if(index != -1){
 
             if(changePalletMode){
                 toolmanager.changeCurrentPallet(index);
+                changePalletMode = false;
             }
             else{
                 toolmanager.changeParticleID(index);
@@ -49,13 +48,16 @@ public class Keyhandler implements KeyListener {
         // Q : Endrer børstens partikkeltype
         if(keyCode == 'q' || keyCode == 'Q'){
             
-            changePalletMode = !changePalletMode;
+            if(changePalletMode){
+                captionmanager.updateIndividualDefaultCaption(3, "PALLET: " + toolmanager.getCurrentPallet());
+                changePalletMode = false;
+            }
+            else{
+                captionmanager.updateIndividualDefaultCaption(3, "PALLET: selecting");
+                changePalletMode = true;
+            }
 
         }
-            
-        
-
-        // -------------------| Annet |------------------- //
 
         // W : Endrer børstens radius
         if(keyCode == 'w' || keyCode == 'W'){
@@ -102,7 +104,7 @@ public class Keyhandler implements KeyListener {
 
         }
 
-        // G : Pauser oppdateringen av verdenen
+        //   : Pauser oppdateringen av verdenen
         else if(keyCode == ' ' || keyCode == ' '){
 
             world.pauseUnpauseTime();

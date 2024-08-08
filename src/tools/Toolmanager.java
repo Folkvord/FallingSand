@@ -14,9 +14,9 @@ import window.Mousehandler;
 
 public class Toolmanager {
     
-    public Board board;
-    public World world;
-    public Mousehandler mousehandler;
+    private Board board;
+    private World world;
+    private Mousehandler mousehandler;
 
     // Tools
     public Brush brush;
@@ -57,6 +57,8 @@ public class Toolmanager {
         brush.changeParticleID(particleID);
         rectangletool.changeParticleID(particleID);
 
+        board.captionmanager.updateIndividualDefaultCaption(0, "PARTICLETYPE: " + particleID);
+
     }
 
     public void changeParticleID(int index){
@@ -65,6 +67,8 @@ public class Toolmanager {
 
         brush.changeParticleID(ID);
         rectangletool.changeParticleID(ID);
+        
+        board.captionmanager.updateIndividualDefaultCaption(0, "PARTICLETYPE: " + ID);
 
     }
 
@@ -210,7 +214,9 @@ public class Toolmanager {
         if(index < 0 || index > palletAmount) return;
         
         currentPallet = particlePallets[index];
-    
+
+        board.captionmanager.updateIndividualDefaultCaption(3, "PALLET: " + currentPallet.getName());
+
     }
 
     public String getCurrentPallet(){

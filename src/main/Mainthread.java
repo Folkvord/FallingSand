@@ -57,7 +57,8 @@ public class Mainthread implements Runnable {
 
             if(timer >= 1000000000){
 
-                board.importFramerate(frameCount);
+                board.framerate = frameCount;
+                board.captionmanager.updateIndividualDefaultCaption(2, "FRAMERATE: " + frameCount);
 
                 timer = 0;
                 frameCount = 0;

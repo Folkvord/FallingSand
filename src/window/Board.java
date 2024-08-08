@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 import resourcemenu.*;
 import tools.*;
 import tools.brush.*;
+import window.text.Captionmanager;
 
 public class Board extends JPanel {
 
@@ -35,13 +36,16 @@ public class Board extends JPanel {
     private char lineToolAxis = 'n';
 
     // Verdenen
-    public World world;
+    public final World world;
 
     // Menyen
-    public Supermenu menu;
+    public final Supermenu menu;
+
+    // CaptionManager
+    public final Captionmanager captionmanager;
 
     // Informasjon om sesjonen
-    private int framerate = 0;
+    public int framerate = 0;
 
 
 
@@ -64,7 +68,10 @@ public class Board extends JPanel {
         // Verktøyhandler
         this.toolmanager = toolmanager;
         toolmanager.createTools(this);
-
+ 
+        // Captionmanager
+        captionmanager = new Captionmanager(this, world);
+        
         // Tastatur
         setFocusable(true);
         keyhandler = new Keyhandler(this, world);
@@ -358,6 +365,7 @@ public class Board extends JPanel {
         g.setColor(Color.white);
 
         g.drawString("TYPE: "+type, 0, 25);
+
         g.drawString("BRUSH SIZE: "+toolmanager.getBrush().getRadius()*2, 0, 25*2);
         
         g.drawString("PARTICLE AMOUNT: "+world.countParticles(), 0, 25*3);  // Lagger
@@ -366,11 +374,7 @@ public class Board extends JPanel {
         
         g.drawString("PALLET: "+toolmanager.getCurrentPallet(), 0, 25*5);
 
-        if(world.isPaused()){
-
-            g.drawString("PAUSED", 0, 25*6);
-
-        }
+        if(world.isPaused()) g.drawString("PAUSED", 0, 25*6);
 
     }
 
@@ -382,8 +386,10 @@ public class Board extends JPanel {
         // Vis verdenen
         world.drawParticles(g);
 
-        // Vis informasjon
-        showInfo(g);
+        // Vis teks
+        captionmanager.updateDefaultCaptions();
+        captionmanager.renderDefaultText(g);
+        captionmanager.renderCaptions(g);
 
         // Verktøy
         toolmanager.drawCorrectTool(g);

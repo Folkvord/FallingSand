@@ -59,9 +59,7 @@ public class World {
             for(int x = 0; x < PARTICLEX; x++){
                 Element particle = get(x, y);
                 
-                if(particle == null) continue;
-                else particle.moved = false;
-
+                if(particle != null) particle.moved = false;
 
             }
         }
