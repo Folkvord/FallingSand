@@ -46,8 +46,8 @@ public abstract class Element {
 
 
         // ----- | Skaper vektoren | ----- //
-        int x1 = (int) (x0 + velocityVector.x);
-        int y1 = (int) (y0 + velocityVector.y);
+        int x1 = (int) (velocityVector.x) + x0;
+        int y1 = (int) (velocityVector.y) + y0;
 
         int xDiff = x0 - x1;
         int yDiff = y0 - y1;
@@ -98,7 +98,6 @@ public abstract class Element {
             else{
                 falling = false;
                 moveElementTo(lastValidX, lastValidY, world);
-                velocityVector.y = 0;
             }
 
         }
@@ -197,6 +196,10 @@ public abstract class Element {
 
     public boolean isFalling(){
         return falling;
+    }
+
+    public float getMass(){
+        return mass;
     }
 
     @Override
