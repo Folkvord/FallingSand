@@ -3,7 +3,6 @@ package window;
 import entities.*;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -270,11 +269,8 @@ public class Board extends JPanel {
                 yIncrease = i;
             }
 
-            
             x = x0 + (xIncrease * xMod);
             y = y0 + (yIncrease * yMod);
-
-            if(i == 5){x0++; y0++;}
             
             if(world.pointIsOccupied(x, y)){
                 g.setColor(Color.red);
@@ -321,62 +317,8 @@ public class Board extends JPanel {
         }
 
     }
-    // ----------------------------------<| Informasjon |>------------------------------------------ //
-
-    public void importFramerate(int framerate){
-
-        this.framerate = framerate;
-
-    }
 
     // ------------------------------------<| Grafikk |>-------------------------------------------- //
-
-    
-
-
-    public void showInfo(Graphics g){
-        String type;
-        
-        // Finn ut type
-        switch(toolmanager.getBrush().getParticleID()) {
-            
-            case ERASE:
-                type = "ERASER";
-                break;
-            
-            case SAND:
-                type = "SAND";
-                break;
-        
-            case WATER:
-                type = "WATER";
-                break;
-
-            case STONE:
-                type = "STONE";
-                break;
-
-            default:
-                type = "NULL";
-                break;
-        }
-
-        g.setFont(new Font(null, Font.PLAIN, 20));
-        g.setColor(Color.white);
-
-        g.drawString("TYPE: "+type, 0, 25);
-
-        g.drawString("BRUSH SIZE: "+toolmanager.getBrush().getRadius()*2, 0, 25*2);
-        
-        g.drawString("PARTICLE AMOUNT: "+world.countParticles(), 0, 25*3);  // Lagger
-
-        g.drawString("TICKRATE: "+framerate, 0, 25*4);
-        
-        g.drawString("PALLET: "+toolmanager.getCurrentPallet(), 0, 25*5);
-
-        if(world.isPaused()) g.drawString("PAUSED", 0, 25*6);
-
-    }
 
     @Override
     public void paintComponent(Graphics g){

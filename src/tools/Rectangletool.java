@@ -1,10 +1,9 @@
 package tools;
 
+import entities.World;
 import java.awt.Color;
 import java.awt.Graphics;
-
 import window.Board;
-import entities.World;
 
 public class Rectangletool extends Tool {
 
@@ -57,12 +56,7 @@ public class Rectangletool extends Tool {
         int greaterHeight = Math.max(y0, y);
         int smallerHeight = Math.min(y0, y);
         
-        if((greaterLength - smallerLength < 5) || greaterHeight - smallerHeight < 5){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return (greaterLength - smallerLength < 5) || (greaterHeight - smallerHeight < 5);
 
     }
 
@@ -91,7 +85,7 @@ public class Rectangletool extends Tool {
     }
 
     // Omdanner alle partikkler i arealet
-    public void executeTask(){
+    private void executeTask(){
 
         int greaterLength = Math.max(x0, x1);
         int smallerLength = Math.min(x0, x1);

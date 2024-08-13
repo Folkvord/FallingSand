@@ -8,8 +8,8 @@ import window.Board;
 
 public abstract class Brush extends Tool {
 
-    public boolean markerDisabled = false;
-
+    protected boolean markerDisabled = false;
+    
     protected int radius = 1;
 
 
@@ -112,7 +112,5 @@ public abstract class Brush extends Tool {
 
     }
 
-
-  
 
 }

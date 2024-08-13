@@ -81,7 +81,7 @@ public class Captionmanager {
         defaultCaptions[2] = new Caption("FRAMERATE: 60", x, y*3);
 
         // Spall
-        String palletName = board.toolmanager.getCurrentPallet();
+        String palletName = board.toolmanager.getCurrentPalletName();
         defaultCaptions[3] = new Caption("PALLET: " + palletName, x, y*4);
 
     }

@@ -44,7 +44,6 @@ public abstract class Element {
             return;
         }
 
-
         // ----- | Skaper vektoren | ----- //
         int x1 = (int) (velocityVector.x) + x0;
         int y1 = (int) (velocityVector.y) + y0;

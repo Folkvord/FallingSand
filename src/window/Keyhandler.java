@@ -31,13 +31,14 @@ public class Keyhandler implements KeyListener {
         char keyCode = e.getKeyChar();
         int  index = getKeyIntValue(keyCode);
 
-
         // Et tall : Endrer partikkeltypen til den i pallettet
         if(index != -1){
 
             if(changePalletMode){
-                toolmanager.changeCurrentPallet(index);
-                changePalletMode = false;
+
+                boolean validPalletChosen = toolmanager.changeCurrentPallet(index);
+                if(validPalletChosen) changePalletMode = false;
+            
             }
             else{
                 toolmanager.changeParticleID(index);
@@ -49,7 +50,7 @@ public class Keyhandler implements KeyListener {
         if(keyCode == 'q' || keyCode == 'Q'){
             
             if(changePalletMode){
-                captionmanager.updateIndividualDefaultCaption(3, "PALLET: " + toolmanager.getCurrentPallet());
+                captionmanager.updateIndividualDefaultCaption(3, "PALLET: " + toolmanager.getCurrentPalletName());
                 changePalletMode = false;
             }
             else{

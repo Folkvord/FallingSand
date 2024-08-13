@@ -21,6 +21,7 @@ public class Toolmanager {
     // Tools
     public Brush brush;
     public Rectangletool rectangletool;
+    public Sprinklerbrush sprinklerbrush;
 
     private String activeTool = "brush";
 
@@ -49,6 +50,9 @@ public class Toolmanager {
         
         // rect. tool
         rectangletool = new Rectangletool(board, world);
+
+        // Springbørste
+        sprinklerbrush = new Sprinklerbrush(board, world);
         
     }
 
@@ -56,6 +60,7 @@ public class Toolmanager {
 
         brush.changeParticleID(particleID);
         rectangletool.changeParticleID(particleID);
+        sprinklerbrush.changeParticleID(particleID);
 
         board.captionmanager.updateIndividualDefaultCaption(0, "PARTICLETYPE: " + particleID);
 
@@ -67,6 +72,7 @@ public class Toolmanager {
 
         brush.changeParticleID(ID);
         rectangletool.changeParticleID(ID);
+        sprinklerbrush.changeParticleID(ID);
         
         board.captionmanager.updateIndividualDefaultCaption(0, "PARTICLETYPE: " + ID);
 
@@ -133,6 +139,7 @@ public class Toolmanager {
                 useRectangletool();
                 break;
 
+
         }
     
     }
@@ -160,7 +167,7 @@ public class Toolmanager {
     // -----------------------------------<| Bruksmetoder |>---------------------------------------- //
 
     private void useBrush(){
-
+    
         if(mousehandler.leftClick){
                 
             brush.paintVector(board.getLastMouseX(), board.getLastMouseY(), board.getCurrentMouseX(), board.getCurrentMouseY());
@@ -186,6 +193,14 @@ public class Toolmanager {
 
     }
 
+    private void useSprinklerBrush(){
+
+        if(mousehandler.leftClick){
+
+        }
+
+    }
+
 
     // -----------------------------------<| Pallet |>---------------------------------------- //
     
@@ -207,19 +222,21 @@ public class Toolmanager {
     
     }
     
-    // Gjør ingenting om ingen gyldig pallet velges 
-    public void changeCurrentPallet(int index){
+    // Returnerer false om ingen gyldig pallet velges, ellers true
+    public boolean changeCurrentPallet(int index){
         
         index--;
-        if(index < 0 || index > palletAmount) return;
+        if(index < 0 || index > palletAmount - 1) return false;
         
         currentPallet = particlePallets[index];
 
         board.captionmanager.updateIndividualDefaultCaption(3, "PALLET: " + currentPallet.getName());
 
+        return true;
+
     }
 
-    public String getCurrentPallet(){
+    public String getCurrentPalletName(){
         return currentPallet.getName();
     }
 

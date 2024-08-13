@@ -44,15 +44,24 @@ public abstract class Movablesolid extends Solid {
                 moveElementTo(x0, y0, world);
                 return true;
             }
-            
-            if(falling){
-            //    velocityVector.x = (Math.random() > 0.5) ? velocityVector.y/2 : -velocityVector.y/2;
+
+            if(falling){    // Primitivt; oppdater
+            //    int direction = (Math.random() > 0.5f) ? 1 : -1;
+            //    velocityVector.x = (velocityVector.y / 2) * direction;
             }
 
             Vector normalizedVector = velocityVector.copy().normalize();
             int directionX = getDirection(normalizedVector.x);
             int directionY = 1;
+            
+            Element diagonalNeighbor = world.get(x0 + directionX, y0 + directionY);
+            if(diagonalNeighbor != null && firstAction){
+            //    velocityVector.y = averageOrGravity(diagonalNeighbor.velocityVector.y);
+            }
+            else{
 
+            }
+            
             if(world.isWithinBounds(x0 + directionX, y0 + directionY)){
                 boolean stopped = action(x0, y0, x0 + directionX, y0 + directionY, firstAction, true, world);
                 if(!stopped){
@@ -60,26 +69,12 @@ public abstract class Movablesolid extends Solid {
                     return true;
                 }
                 
-                // Mulig å sjekke andre siden
-                
             }
             
             
+
             falling = false;
-            return true;
-
-            
-
-
-            //if(world.isWithinBounds(x0 + directionX, y1)){
-            //    boolean stopped = action(x0, y0, x0 + directionX, y0, firstAction, true, world);
-            //    if(!stopped){
-            //        falling = true;
-            //        return true;
-            //    }
-            //    velocityVector.x *= -1;
-            //}
-            
+            return true;            
             
         }
 
@@ -106,6 +101,13 @@ public abstract class Movablesolid extends Solid {
         else{
             return (Math.random() < 0.5) ? 1 : -1;
         }
+
+    }
+
+    private float averageOrGravity(float velocity){
+
+        float avgVelo = (velocityVector.y + velocity) / 2;
+        return (avgVelo < 1) ? 1 : avgVelo; 
 
     }
 

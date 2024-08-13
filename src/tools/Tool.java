@@ -53,7 +53,7 @@ public abstract class Tool {
                 break;
         
             default:
-                System.out.println("TOOL: LOOOL");
+                System.out.println("TOOL: INVALID PARTICLEID");
                 break;
 
         }
