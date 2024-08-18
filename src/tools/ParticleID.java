@@ -5,7 +5,7 @@ public enum ParticleID {
     ERASE,
     
     // Movable solid
-    SAND, DIRT,
+    SAND, DIRT, GRAVEL,
     
     // Immovable solid
     STONE,

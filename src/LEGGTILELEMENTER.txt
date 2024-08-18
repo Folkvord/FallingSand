@@ -1,3 +1,6 @@
+PARTICLEID:
+Legg til en ny enum
+
 TOOLMANAGER:
 I metoden: initPallets() -> Legg til elementet i palletet
 

@@ -58,6 +58,10 @@ public class Vector {
 
     }
 
+    public boolean isNullVector(){
+        return (this.x == 0 && this.y == 0);
+    }
+
     @Override
     public String toString(){
         return "("+ x +", "+ y +")";

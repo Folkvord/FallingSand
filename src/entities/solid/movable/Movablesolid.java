@@ -19,12 +19,13 @@ public abstract class Movablesolid extends Solid {
 
         // Hvis plassen er tom
         if(target == null){
-            
+
+            setNeighborsToFalling(x1, y1, world);
             if(lastAction){
-                moveElementTo(x1, y1, world);
-                setNeighborsToFalling(x1, y1, world);
+                moveElementTo(x1, y1, world); 
             }
 
+            
             falling = true;
             return false;
             
@@ -46,51 +47,50 @@ public abstract class Movablesolid extends Solid {
             }
 
             if(falling){    // Primitivt; oppdater
-            //    int direction = (Math.random() > 0.5f) ? 1 : -1;
-            //    velocityVector.x = (velocityVector.y / 2) * direction;
+                int direction = (velocityVector.x > 0) ? 1 : -1;
+                velocityVector.x = (velocityVector.y / 2) * direction;
             }
 
             Vector normalizedVector = velocityVector.copy().normalize();
             int directionX = getDirection(normalizedVector.x);
-            int directionY = 1;
-            
-            Element diagonalNeighbor = world.get(x0 + directionX, y0 + directionY);
-            if(diagonalNeighbor != null && firstAction){
-            //    velocityVector.y = averageOrGravity(diagonalNeighbor.velocityVector.y);
-            }
-            else{
+            int directionY = getDirection(normalizedVector.y);
 
-            }
-            
+            velocityVector.x *= (this.frictionFactor * target.frictionFactor);
+
             if(world.isWithinBounds(x0 + directionX, y0 + directionY)){
                 boolean stopped = action(x0, y0, x0 + directionX, y0 + directionY, firstAction, true, world);
                 if(!stopped){
                     falling = true;
                     return true;
                 }
-                
+
             }
-            
+
+            if(world.isWithinBounds(x0 + directionX, y0)){
+                boolean stopped = action(x0, y0, x0 + directionX, y0, firstAction, true, world);
+                if(stopped){
+                    velocityVector.x = -velocityVector.x;
+                }
+                else{
+                    falling = false;
+                    return true;
+                }
+
+            }
+
             
 
             falling = false;
-            return true;            
-            
+            moveElementTo(x0, y0, world);
+            return true;
+
         }
 
         return true;
 
     }
 
-    protected float getAverageVelocity(float velocity, float otherVelocity){
-
-        float averageVelocity = (velocity + otherVelocity)/2;
-
-        return (averageVelocity > 0) ? averageVelocity : 2;
-
-    }
-
-    protected int getDirection(float velocity){
+    private int getDirection(float velocity){
 
         if(velocity > 0.1f){
             return 1;
@@ -99,15 +99,8 @@ public abstract class Movablesolid extends Solid {
             return -1;
         }
         else{
-            return (Math.random() < 0.5) ? 1 : -1;
+            return 0;
         }
-
-    }
-
-    private float averageOrGravity(float velocity){
-
-        float avgVelo = (velocityVector.y + velocity) / 2;
-        return (avgVelo < 1) ? 1 : avgVelo; 
 
     }
 

@@ -48,10 +48,14 @@ public abstract class Tool {
                 world.set(x, y, new Water(x, y));
                 break;
         
+            case GRAVEL:
+                world.set(x, y, new Gravel(x, y));
+                break;
+
             case STONE:
                 world.set(x, y, new Stone(x, y));
                 break;
-        
+
             default:
                 System.out.println("TOOL: INVALID PARTICLEID");
                 break;

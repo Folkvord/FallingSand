@@ -10,10 +10,10 @@ public class Dirt extends Movablesolid {
         super(x, y);
         
         frictionFactor = 0.2f;
-        inertialFactor = 0.5f;
+        inertialFactor = 0.9f;
         mass = 0.5f;
 
-        colour = (new Random().nextBoolean()) ? Color.decode("#210c0b") : Color.decode("#26100f");
+        colour = (new Random().nextBoolean()) ? Color.decode("#4a2511") : Color.decode("#3b1d0d");
 
     }
 

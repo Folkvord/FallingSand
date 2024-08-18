@@ -193,20 +193,12 @@ public class Toolmanager {
 
     }
 
-    private void useSprinklerBrush(){
-
-        if(mousehandler.leftClick){
-
-        }
-
-    }
-
 
     // -----------------------------------<| Pallet |>---------------------------------------- //
     
     private void initPallets(){
 
-        ParticleID[] sPal = {ParticleID.SAND, ParticleID.DIRT, ParticleID.STONE};
+        ParticleID[] sPal = {ParticleID.SAND, ParticleID.DIRT, ParticleID.GRAVEL, ParticleID.STONE};
         ParticleID[] lPal = {ParticleID.WATER};
         ParticleID[] gPal = {};
         
